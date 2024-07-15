@@ -18,13 +18,6 @@ public:
     server(int serverID, float performance){
         this->serverID = serverID;
         this->performance = performance;
-
-        // if (!serverList.empty()){
-        //     serverList.push_back()
-        //     server* temp= serverList.at(serverList.size()-1);
-        //     temp->nextServer = server;
-        // }
-
         std::cout << "Server "<< serverID << " created with perfromance: "<< performance << "\n";
     }
 };
@@ -34,23 +27,23 @@ std::vector<server*> serverList;
 int main(){
 
     // Spawn the servers
-    server server1 = server(1, 1);
-    server server2 = server(2, 0.1);
-    server server3 = server(3, 1);
-    server server4 = server(4, 1);
-    server server5 = server(5, 1);
-    server server6 = server(6, 1);
-    server server7 = server(7, 1);
-    server server8 = server(8, 1);
+    server server1 = server(1, 0.35);
+    server server2 = server(2, 0.5);
+    server server3 = server(3, 0.15);
+    server server4 = server(4, 0.4);
+    server server5 = server(5, 0.3);
+    server server6 = server(6, 0.05);
+    server server7 = server(7, 0.8);
+    server server8 = server(8, 0.2);
 
     serverList.push_back(&server1);
     serverList.push_back(&server2);
     serverList.push_back(&server3);
-    serverList.push_back(&server4);
-    serverList.push_back(&server5);
-    serverList.push_back(&server6);
-    serverList.push_back(&server7);
-    serverList.push_back(&server8);
+    // serverList.push_back(&server4);
+    // serverList.push_back(&server5);
+    // serverList.push_back(&server6);
+    // serverList.push_back(&server7);
+    // serverList.push_back(&server8);
     
     float ratio;
     bool isAssigned = false; 
@@ -60,21 +53,23 @@ int main(){
     int j = 0;
     int serverRequests = 0;
     int serverSize = 0;
-    while(i < 1E7){
+    while(i < 1E8){
+        isAssigned = false;
         serverSize = serverList.size();
+        
         if (j > serverSize-1){
             j = 0;
         }
-        isAssigned = false;
         
         while (!isAssigned)
         {
             serverRequests = serverList[j]->serverRequests;
+            
             if (serverRequests == 0){
                 ratio = 0;
             }
             else{
-                ratio = (float)serverRequests / (float)i;
+                ratio = (float)serverRequests / i;   // Cast from integer to float
             }
             
             if (ratio - serverList[j]->performance <= 0){

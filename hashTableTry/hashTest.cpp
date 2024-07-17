@@ -70,4 +70,18 @@ void HashTable::removeItem(int key){
     if (!keyExists){
         std::cout << "[WARNING] Key not found. Pair not removed.\n";
     }
+
+    return;
+}
+
+void HashTable::printTable(){
+    for(int i{};i<hashGroups;i++){
+        if(table[i].size() == 0) continue;
+
+        auto bItr = table[i].begin();
+        for(; bItr != table[i].end(); bItr++){
+            std::cout << "[INFO] Key: " << bItr->first << " Value: " << bItr->second << "\n";
+        }
+    }
+    return;
 }

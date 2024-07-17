@@ -2,8 +2,6 @@
 #include <string>
 #include <vector>
 
-void createServer();
-
 
 class server{
 public:
@@ -53,7 +51,8 @@ int main(){
     int j = 0;
     int serverRequests = 0;
     int serverSize = 0;
-    while(i < 1E8){
+
+    while(i < 1E4){
         isAssigned = false;
         serverSize = serverList.size();
         

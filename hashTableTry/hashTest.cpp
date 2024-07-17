@@ -37,7 +37,7 @@ void HashTable::insertItem(int key, std::string value){
     auto& cell = table[hashValue];
     auto bItr= begin(cell);
     bool keyExists = false;
-    for (; bItr !=end(cell); bItr++){
+    for (; bItr != end(cell); bItr++){
         if (bItr->first == key){
             keyExists = true;
             bItr->second = value;
@@ -84,4 +84,26 @@ void HashTable::printTable(){
         }
     }
     return;
+}
+
+int main(){
+    HashTable HT;
+    if (HT.isEmpty()){
+        std::cout << "HT is indeed empty\n";
+    } else {
+        std::cout << "Problem!\n";
+    }
+
+    HT.insertItem(903, "Tim");
+    HT.insertItem(911, "Tom");
+    HT.insertItem(955, "James");
+    HT.insertItem(978, "Ryan");
+
+    HT.printTable();
+
+    HT.removeItem(911);
+    HT.removeItem(600);
+
+    
+    return 0;
 }

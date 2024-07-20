@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-
+void createServer(int ID, float performance);
 class server{
 public:
     // Members
@@ -20,28 +20,19 @@ public:
     }
 };
 
-std::vector<server*> serverList;
+std::vector<server> serverList;
 
 int main(){
 
     // Spawn the servers
-    server server1 = server(1, 0.35);
-    server server2 = server(2, 0.5);
-    server server3 = server(3, 0.15);
-    server server4 = server(4, 0.4);
-    server server5 = server(5, 0.3);
-    server server6 = server(6, 0.05);
-    server server7 = server(7, 0.8);
-    server server8 = server(8, 0.2);
-
-    serverList.push_back(&server1);
-    serverList.push_back(&server2);
-    serverList.push_back(&server3);
-    // serverList.push_back(&server4);
-    // serverList.push_back(&server5);
-    // serverList.push_back(&server6);
-    // serverList.push_back(&server7);
-    // serverList.push_back(&server8);
+    createServer(1, 0.35);
+    createServer(2, 0.5);
+    createServer(3, 0.15);
+    createServer(4, 0.4);
+    createServer(5, 0.3);
+    createServer(6, 0.05);
+    createServer(7, 0.8);
+    createServer(8, 0.2);
     
     float ratio;
     bool isAssigned = false; 
@@ -62,7 +53,7 @@ int main(){
         
         while (!isAssigned)
         {
-            serverRequests = serverList[j]->serverRequests;
+            serverRequests = serverList[j].serverRequests;
             
             if (serverRequests == 0){
                 ratio = 0;
@@ -71,8 +62,8 @@ int main(){
                 ratio = (float)serverRequests / i;   // Cast from integer to float
             }
             
-            if (ratio - serverList[j]->performance <= 0){
-                serverList[j]->serverRequests += 1;
+            if (ratio - serverList[j].performance <= 0){
+                serverList[j].serverRequests += 1;
                 isAssigned = true;
                 break;
             }
@@ -90,10 +81,14 @@ int main(){
     }
 
     for (const auto& k:serverList){
-        std::cout << "Server "<< k->serverID << " requests: "<< k->serverRequests << "\n";
+        std::cout << "Server "<< k.serverID << " requests: "<< k.serverRequests << "\n";
     }
 
     return 0;
 }
 
-
+void createServer(int ID, float performance)
+{
+    server server1 = server(ID, performance);
+     serverList.push_back(server1);
+}
